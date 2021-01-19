@@ -259,10 +259,12 @@ partialMapOf _ = fromDistinctAscList . zip [0..] . partials
 
 -- | Construct a tape that starts with @n@ variables.
 reifyTape :: Int -> (forall s. Reifies s Tape => Proxy s -> r) -> r
-reifyTape vs k = unsafePerformIO $ do
+reifyTape vs k = error "reifyTape" {-
+unsafePerformIO $ do
   h <- newIORef (Head vs Nil)
   return (reify (Tape h) k)
-{-# NOINLINE reifyTape #-}
+# NOINLINE reifyTape #
+-}
 
 var :: a -> Int -> Reverse s a
 var a v = Reverse v a
